@@ -1,9 +1,9 @@
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/button'
 import { Carousel } from '@/components/ui/carousel'
-import { promises as fs } from 'fs';
+import { promises as fs } from 'fs'
 
-import Link from "next/link";
-import Image from "next/image";
+import Link from "next/link"
+import Image from "next/image"
 
 export default async function Home() {
     const file = await fs.readFile(process.cwd() + "/public/content.json", "utf-8");
@@ -35,12 +35,12 @@ export default async function Home() {
                         alt = "Banner Image"
                         width = { 450 }
                         height = { 450 }
-                        src = { "/" + data[0].Images[0] }
+                        src = { "/prints/" + data[0].Id + "/" + data[0].Images[0] }
                     />
                 </div>
             </section>
             <section className="py-8">
-                <Carousel models={data}/>
+                <Carousel prints={data}/>
             </section>
         </div>
     );

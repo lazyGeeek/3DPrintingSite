@@ -1,26 +1,26 @@
 "use client";
 
 import { Card, CardContent, CardTitle } from "@/components/ui/card"
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
 
 import Image from "next/image";
 
 interface Prints {
-    models: any[];
+    prints: any[];
 }
 
-export const Carousel = ({models}: Prints) => {
+export const Carousel = ({prints}: Prints) => {
     const [current, setCurrent] = useState<number>(0);
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setCurrent((prev) => (prev + 1) % models.length);
+            setCurrent((prev) => (prev + 1) % prints.length);
         }, 3000);
 
         return () => clearInterval(interval);
-    }, [models.length]);
+    }, [prints.length]);
 
-    const currentModel = models[current];
+    const currentModel = prints[current];
 
     return (
         <Card className="relative overflow-hidden rounded-lg shadow-md border-gray-300">
@@ -29,7 +29,7 @@ export const Carousel = ({models}: Prints) => {
                     <div className="relative h-80 w-full">
                         <Image
                             alt = { currentModel.Title }
-                            src = { "/" + currentModel.Images[0] }
+                            src = { "/prints/" + currentModel.Id + "/" + currentModel.Images[0] }
                             fill
                             style = {{ objectFit:"cover" }}
                             className="transition-opacity duration-500 ease-in-out"/>
