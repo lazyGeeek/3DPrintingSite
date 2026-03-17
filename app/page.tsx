@@ -1,13 +1,30 @@
 import { Button } from '@/components/ui/button'
-import { Carousel } from '@/components/ui/carousel'
+import { LatestPrintsCarousel } from '@/components/ui/latest-prints-carousel'
 import { promises as fs } from 'fs'
 
 import Link from "next/link"
 import Image from "next/image"
 
+type PrintData = {
+    Id: string;
+    Title: string;
+    Properties: string[];
+    Description: string;
+    Images: string[];
+};
+
 export default async function Home() {
     const file = await fs.readFile(process.cwd() + "/public/content.json", "utf-8");
     const data = JSON.parse(file);
+    // const data: Config = JSON.parse(file);
+
+    // useEffect(() => {
+    //     fetch("/data/config.json")
+    //     .then((res) => res.json())
+    //     .then((json) => setData(json));
+    // }, []);
+
+    //  if (!data) return <p>Loading...</p>;
 
     return (
         <div>
@@ -40,7 +57,7 @@ export default async function Home() {
                 </div>
             </section>
             <section className="py-8">
-                <Carousel prints={data}/>
+                <LatestPrintsCarousel prints={data} amount={3}/>
             </section>
         </div>
     );

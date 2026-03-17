@@ -7,18 +7,21 @@ import Image from "next/image";
 
 interface Prints {
     prints: any[];
+    amount: number;
 }
 
-export const Carousel = ({prints}: Prints) => {
+export const LatestPrintsCarousel = ({prints, amount}: Prints) => {
     const [current, setCurrent] = useState<number>(0);
+
+    const numberOfIterItems = prints.length > amount ? amount : prints.length;
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setCurrent((prev) => (prev + 1) % prints.length);
+            setCurrent((prev) => (prev + 1) % numberOfIterItems);
         }, 3000);
 
         return () => clearInterval(interval);
-    }, [prints.length]);
+    }, [numberOfIterItems]);
 
     const currentModel = prints[current];
 
