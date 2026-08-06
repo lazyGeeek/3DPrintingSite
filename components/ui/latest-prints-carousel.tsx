@@ -35,12 +35,13 @@ export const LatestPrintsCarousel = ({prints, amount}: Prints) => {
                             src = { "/prints/" + currentModel.Id + "/" + currentModel.Images[0] }
                             fill
                             style = {{ objectFit:"cover" }}
+                            loading="eager"
                             className="transition-opacity duration-500 ease-in-out"/>
                     </div>
                 )
             }
             <CardContent className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50">
-                <CardTitle className="text-3xl font-bold text-white mb-2">
+                <CardTitle className="text-3xl font-bold text-white mb-2 bg-zinc-800/80 px-4 py-2 rounded-md">
                     { currentModel.Title }
                 </CardTitle>
             </CardContent>

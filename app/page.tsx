@@ -16,19 +16,10 @@ type PrintData = {
 export default async function Home() {
     const file = await fs.readFile(process.cwd() + "/public/content.json", "utf-8");
     const data = JSON.parse(file);
-    // const data: Config = JSON.parse(file);
-
-    // useEffect(() => {
-    //     fetch("/data/config.json")
-    //     .then((res) => res.json())
-    //     .then((json) => setData(json));
-    // }, []);
-
-    //  if (!data) return <p>Loading...</p>;
 
     return (
         <div>
-            <section className="rounded bg-neutral-100 py-8 sm:py-12">
+            <section className="bg-zinc-100/80 rounded-lg py-8 sm:py-12">
                 <div className="mx-auto grid grid-cols-1 items-center justify-items-center gap-8 px-8 sm:px-16 md:grid-cols-2">
                     <div className="max-w-md space-y-4">
                         <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
@@ -44,15 +35,17 @@ export default async function Home() {
                             <Link
                                 href="/prints"
                                 className="inline-flex items-center justify-center rounded-full px-6 py-3">
-                                    Sholl All Prints
+                                    See All Prints
                             </Link>
                         </Button>
                     </div>
                     <Image
-                        alt = "Banner Image"
-                        width = { 450 }
-                        height = { 450 }
-                        src = { "/prints/" + data[0].Id + "/" + data[0].Images[0] }
+                        alt="Banner Image"
+                        width={450}
+                        height={450}
+                        style={{width: "auto", height: "auto", maxWidth: "100%", maxHeight: "450px"}}
+                        loading="eager"
+                        src={"/prints/" + data[0].Id + "/" + data[0].Images[0]}
                     />
                 </div>
             </section>

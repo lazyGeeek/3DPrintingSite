@@ -199,6 +199,7 @@ export const PrintDetail: React.FC<PrintProps> = ({ print }) => {
                     fill
                     sizes="80px"
                     className="object-contain"
+                    loading="eager"
                   />
                 </button>
               ))}
@@ -215,6 +216,7 @@ export const PrintDetail: React.FC<PrintProps> = ({ print }) => {
                     priority
                     sizes="(min-width: 768px) 60vw, 100vw"
                     className="object-contain cursor-zoom-in"
+                    loading="eager"
                     onClick={openLightbox}
                   />
 
@@ -415,6 +417,7 @@ export const PrintDetail: React.FC<PrintProps> = ({ print }) => {
                 height={800}
                 style={{ width: "auto", height: "auto", maxWidth: "90vw", maxHeight: "80vh" }}
                 className="object-contain select-none"
+                loading="eager"
                 draggable={false}
                 priority
               />
@@ -439,6 +442,7 @@ export const PrintDetail: React.FC<PrintProps> = ({ print }) => {
                   fill
                   sizes="64px"
                   className="object-contain"
+                  loading="eager"
                 />
               </button>
             ))}
