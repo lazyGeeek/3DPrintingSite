@@ -9,7 +9,7 @@ type PrintImage = {
   alt: string
 }
 
-interface PrintType {
+export interface PrintType {
   Id: string
   Title: string
   Description?: string

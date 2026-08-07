@@ -67,7 +67,7 @@ export default async function PrintsPage({
     Math.ceil(data.length / PRINTS_PER_PAGE),
   );
 
-  const { page } = await searchParams;
+  const page = searchParams;
   const parsedPage = Number(page);
 
   const currentPage =
