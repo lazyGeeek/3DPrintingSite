@@ -199,7 +199,6 @@ export const PrintDetail: React.FC<PrintProps> = ({ print }) => {
                     fill
                     sizes="80px"
                     className="object-contain"
-                    loading="eager"
                   />
                 </button>
               ))}
