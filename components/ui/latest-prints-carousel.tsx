@@ -2,11 +2,12 @@
 
 import { Card, CardContent, CardTitle } from "@/components/ui/card"
 import { useEffect, useState } from "react"
+import { PrintType } from "@/components/ui/print-type"
 
 import Image from "next/image";
 
 interface Prints {
-    prints: any[];
+    prints: PrintType[];
     amount: number;
 }
 

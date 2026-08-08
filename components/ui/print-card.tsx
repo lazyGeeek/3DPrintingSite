@@ -3,9 +3,10 @@ import Image from "next/image"
 
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Button } from '@/components/ui/button'
+import { PrintType } from "@/components/ui/print-type"
 
 interface Print {
-    print: any;
+    print: PrintType;
 }
 
 export const PrintCard = ({ print }: Print) => {
@@ -33,7 +34,7 @@ export const PrintCard = ({ print }: Print) => {
                 </CardHeader>
                 <CardContent className="p-4 flex-grow flex flex-col justify-between">
                     { print.Description && (
-                        <p className="text-gray-600 text-sm mb-2">{print.description}</p>
+                        <p className="text-gray-600 text-sm mb-2">{print.Description}</p>
                     )}
                     <Button className="mt-4 bg-black text-white">View Details</Button>
                 </CardContent>

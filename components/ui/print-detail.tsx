@@ -3,21 +3,14 @@
 import * as React from "react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import { PrintType } from "@/components/ui/print-type"
 
 type PrintImage = {
   src: string
   alt: string
 }
 
-export interface PrintType {
-  Id: string
-  Title: string
-  Description?: string
-  Properties: string[]
-  Images: string[]
-}
-
-interface PrintProps {
+type PrintProps = {
   print: PrintType
 }
 
@@ -39,7 +32,7 @@ export const PrintDetail: React.FC<PrintProps> = ({ print }) => {
   const [offset, setOffset] = React.useState({ x: 0, y: 0 })
 
   // for drag/pan
-  const isDraggingRef = React.useRef(false)
+  const [isDragging, setIsDragging] = React.useState(false);
   const lastPosRef = React.useRef({ x: 0, y: 0 })
 
   // for swipe on mobile
@@ -106,12 +99,12 @@ export const PrintDetail: React.FC<PrintProps> = ({ print }) => {
 
   // drag / pan handlers for lightbox
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    isDraggingRef.current = true
+    setIsDragging(true)
     lastPosRef.current = { x: e.clientX, y: e.clientY }
   }
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!isDraggingRef.current) return
+    if (!isDragging) return
     const dx = e.clientX - lastPosRef.current.x
     const dy = e.clientY - lastPosRef.current.y
     lastPosRef.current = { x: e.clientX, y: e.clientY }
@@ -119,11 +112,11 @@ export const PrintDetail: React.FC<PrintProps> = ({ print }) => {
   }
 
   const handleMouseUp = () => {
-    isDraggingRef.current = false
+    setIsDragging(false)
   }
 
   const handleMouseLeave = () => {
-    isDraggingRef.current = false
+    setIsDragging(false)
   }
 
   // touch swipe + pan
@@ -131,7 +124,7 @@ export const PrintDetail: React.FC<PrintProps> = ({ print }) => {
     const touch = e.touches[0]
     touchStartXRef.current = touch.clientX
     touchEndXRef.current = touch.clientX
-    isDraggingRef.current = true
+    setIsDragging(true)
     lastPosRef.current = { x: touch.clientX, y: touch.clientY }
   }
 
@@ -139,7 +132,7 @@ export const PrintDetail: React.FC<PrintProps> = ({ print }) => {
     const touch = e.touches[0]
     touchEndXRef.current = touch.clientX
 
-    if (!isDraggingRef.current) return
+    if (!isDragging) return
     const dx = touch.clientX - lastPosRef.current.x
     const dy = touch.clientY - lastPosRef.current.y
     lastPosRef.current = { x: touch.clientX, y: touch.clientY }
@@ -147,7 +140,7 @@ export const PrintDetail: React.FC<PrintProps> = ({ print }) => {
   }
 
   const handleTouchEnd = () => {
-    isDraggingRef.current = false
+    setIsDragging(false)
     const startX = touchStartXRef.current
     const endX = touchEndXRef.current
     if (startX !== null && endX !== null) {
@@ -406,7 +399,7 @@ export const PrintDetail: React.FC<PrintProps> = ({ print }) => {
               <div
                 style={{
                   transform: `translate(${offset.x}px, ${offset.y}px) scale(${zoom})`,
-                  transition: isDraggingRef.current ? "none" : "transform 0.1s ease-out",
+                  transition: isDragging ? "none" : "transform 0.1s ease-out",
                 }}
               >
               <Image

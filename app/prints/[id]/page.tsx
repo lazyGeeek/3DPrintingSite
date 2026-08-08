@@ -1,10 +1,11 @@
 import { promises as fs } from 'fs';
 import {
-    PrintDetail,
-    PrintType
+    PrintDetail
 } from "@/components/ui/print-detail";
 
-interface PageParams {
+import { PrintType } from "@/components/ui/print-type"
+
+type PageParams = {
     id: string;
 }
 

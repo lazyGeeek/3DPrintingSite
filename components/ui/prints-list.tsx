@@ -1,7 +1,8 @@
 import { PrintCard } from "@/components/ui/print-card"
+import { PrintType } from "@/components/ui/print-type"
 
 interface Prints {
-    prints: any[];
+    prints: PrintType[];
 }
 
 export const PrintsList = ({ prints }: Prints) => {
