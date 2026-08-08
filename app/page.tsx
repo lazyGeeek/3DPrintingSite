@@ -37,7 +37,7 @@ export default async function Home() {
                         height={450}
                         style={{width: "auto", height: "auto", maxWidth: "100%", maxHeight: "450px"}}
                         loading="eager"
-                        src={"/prints/" + data[0].Id + "/" + data[0].Images[0]}
+                        src={`prints/${data[0].Id}/${data[0].Images[0]}`}
                     />
                 </div>
             </section>

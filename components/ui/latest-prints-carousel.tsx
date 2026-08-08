@@ -33,7 +33,7 @@ export const LatestPrintsCarousel = ({prints, amount}: Prints) => {
                     <div className="relative h-80 w-full">
                         <Image
                             alt = { currentModel.Title }
-                            src = { "/prints/" + currentModel.Id + "/" + currentModel.Images[0] }
+                            src = { `prints/${currentModel.Id}/${currentModel.Images[0]}` }
                             fill
                             style = {{ objectFit:"cover" }}
                             loading="eager"

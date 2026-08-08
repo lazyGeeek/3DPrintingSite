@@ -18,7 +18,7 @@ export const PrintDetail: React.FC<PrintProps> = ({ print }) => {
   const images: PrintImage[] = React.useMemo(
     () =>
       (print.Images || []).map((img) => ({
-        src: `/prints/${print.Id}/${img}`,
+        src: `${print.Id}/${img}`,
         alt: print.Title,
       })),
     [print.Images, print.Id, print.Title]

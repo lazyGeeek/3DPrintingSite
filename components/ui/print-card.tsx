@@ -11,12 +11,12 @@ interface Print {
 
 export const PrintCard = ({ print }: Print) => {
     return (
-        <Link href = { `/prints/${print.Id}` } className="block h-full">
+        <Link href = { `prints/${print.Id}` } className="block h-full">
             <Card className="group hover:shadow-2xl transition duration-300 py-0 h-full flex flex-col border-gray-300 gap-0">
                 {print.Images && print.Images[0] && (
                     <div className="relative h-60 w-full">
                         <Image
-                            src={`/prints/${print.Id}/${print.Images[0]}`}
+                            src={`prints/${print.Id}/${print.Images[0]}`}
                             alt={print.Title}
                             fill
                             sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 100vw"
