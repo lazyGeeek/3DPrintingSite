@@ -5,11 +5,19 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Button } from '@/components/ui/button'
 import { PrintType } from "@/components/ui/print-type"
 
+const CHAR_CUT_NUMBER = 200;
+
 interface Print {
     print: PrintType;
 }
 
 export const PrintCard = ({ print }: Print) => {
+    const description = print.Description;
+    const truncatedDescription =
+        description && description.length > CHAR_CUT_NUMBER
+            ? description.slice(0, CHAR_CUT_NUMBER) + "..."
+            : description;
+
     return (
         <Link href = { `prints/${print.Id}` } className="block h-full">
             <Card className="group hover:shadow-2xl transition duration-300 py-0 h-full flex flex-col border-gray-300 gap-0">
@@ -33,8 +41,8 @@ export const PrintCard = ({ print }: Print) => {
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="p-4 flex-grow flex flex-col justify-between">
-                    { print.Description && (
-                        <p className="text-gray-600 text-sm mb-2">{print.Description}</p>
+                    { truncatedDescription && (
+                        <p className="text-gray-600 text-sm mb-2">{truncatedDescription}</p>
                     )}
                     <Button className="mt-4 bg-black text-white">View Details</Button>
                 </CardContent>
