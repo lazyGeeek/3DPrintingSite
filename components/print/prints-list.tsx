@@ -12,8 +12,8 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-import { PrintCard } from "@/components/ui/print-card"
-import { PrintType } from "@/components/ui/print-type"
+import { PrintCard } from "@/components/print/print-card"
+import { PrintType } from "@/components/print/print-type"
 
 type Prints = {
     prints: PrintType[];
@@ -92,12 +92,13 @@ export const PrintsList = ({ prints }: Prints) => {
       </p>
     );
   }
-    return (
+  
+  return (
     <div className="space-y-8">
       <ul className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         { visiblePrints.map((print, key)=>{
             return (
-            <li key={key}>
+              <li key={key}>
                 <PrintCard print={print} />
               </li>
             );
