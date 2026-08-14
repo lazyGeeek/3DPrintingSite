@@ -3,7 +3,7 @@ name: publish-to-github-pages
 on:
   push:
     branches:
-      - main
+      - dev
 
   workflow_dispatch:
 
