@@ -71,7 +71,7 @@ export default async function Home() {
                   maxHeight: "450px",
                 }}
                 loading="eager"
-                src={`prints/${data[0].Id}/${data[0].Images[0]}`}
+                src={`prints/FacelessVoid/IMG_2460.JPG`}
               />
             </div>
           </div>
