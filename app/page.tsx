@@ -1,13 +1,15 @@
 import { Button } from '@/components/ui/button'
 import { Navbar } from '@/components/ui/navbar'
-import { promises as fs } from 'fs'
+
+import { createSupabaseClient } from '@/lib/supabase/client'
 
 import Link from 'next/link'
 import Image from 'next/image'
 
 export default async function Home() {
-  const file = await fs.readFile(process.cwd() + "/public/content.json", "utf-8");
-  const data = JSON.parse(file);
+  const { data: mainImage } = createSupabaseClient().storage.
+                              from('faceless_void').
+                              getPublicUrl('IMG_2460.JPG');
 
   return (
     <main>
@@ -61,7 +63,7 @@ export default async function Home() {
             <div className="order-2 md:order-2 flex justify-center">
               <Image
                 className="rounded-lg shadow-lg"
-                alt="Banner Image"
+                alt="Main Image"
                 width={450}
                 height={450}
                 style={{
@@ -71,7 +73,7 @@ export default async function Home() {
                   maxHeight: "450px",
                 }}
                 loading="eager"
-                src={`prints/FacelessVoid/IMG_2460.JPG`}
+                src={mainImage.publicUrl}
               />
             </div>
           </div>

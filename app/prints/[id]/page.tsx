@@ -1,42 +1,43 @@
-import { promises as fs } from 'fs'
-import {
-  PrintDetail
-} from '@/components/print/print-detail'
+import { notFound } from 'next/navigation'
 
+import { Navbar } from '@/components/ui/navbar'
+import { PrintDetail } from '@/components/print/print-detail'
 import { PrintType } from '@/components/print/print-type'
 
-type PageParams = {
-  id: string;
-}
+import { GetPrintsList } from '@/lib/supabase/client'
 
-async function getPrints(): Promise<PrintType[]> {
-  const file = await fs.readFile(
-    process.cwd() + "/public/content.json",
-    "utf-8"
-  );
-
-  return JSON.parse(file);
-}
-
-// This runs during `next build`
-export async function generateStaticParams(): Promise<PageParams[]> {
-  const prints = await getPrints();
+export async function generateStaticParams(): Promise<{ id: string }[]> {
+  const prints = await GetPrintsList();
 
   return prints.map((print) => ({
-    id: print.Id,
+    id: String(print.Id),
   }));
 }
 
 export default async function PrintsPage({
   params,
 }: {
-  params: Promise<PageParams>;
+  params: Promise<{ id: string }>;
 }) {
+  const prints = await GetPrintsList()
+
+  if (!prints) {
+    notFound();
+  }
 
   const { id } = await params;
-  const prints = await getPrints();
+  const print = prints.find((item: PrintType) => item.Id === id);
 
-  const print = prints.find((item: PrintType) => item.Id === id)!;
+  if (!print) {
+    notFound();
+  }
 
-  return <PrintDetail print={print} />;
+  return (
+    <main>
+      <section>
+        <Navbar />
+      </section>
+      <PrintDetail print={print} />
+    </main>
+  );
 }
