@@ -18,21 +18,16 @@ export const PrintCard = ({ print }: Print) => {
       ? description.slice(0, CHAR_CUT_NUMBER) + "..."
       : description;
 
-  const imageSrc =
-    print.Images?.[0]
-      ? `prints/${print.Id}/${print.Images[0]}`
-      : null;
-
   return (
     <Link
       href={`/prints/${print.Id}`}
       className="group block h-full rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
     >
       <Card className="h-full gap-0 overflow-hidden border-border/80 bg-card py-0 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/10">
-        {imageSrc && (
+        {print.Images[0] && (
           <div className="relative h-60 w-full overflow-hidden bg-muted">
             <Image
-              src={imageSrc}
+              src={print.Images[0]}
               alt={print.Title}
               fill
               priority

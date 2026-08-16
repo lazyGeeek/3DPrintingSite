@@ -1,14 +1,11 @@
-import fs from 'node:fs/promises'
 import { PrintsList } from '@/components/print/prints-list'
+import { PrintType } from '@/components/print/print-type'
 import { Navbar } from '@/components/ui/navbar'
 
-export default async function PrintsPage() {
-  const file = await fs.readFile(
-    process.cwd() + "/public/content.json",
-    "utf-8",
-  );
+import { GetPrintsList } from '@/lib/supabase/client'
 
-  const data = JSON.parse(file);
+export default async function PrintsPage() {
+  const prints: PrintType[] = await GetPrintsList();
 
   return (
     <main>
@@ -25,7 +22,13 @@ export default async function PrintsPage() {
           <h1 className="mb-8 text-center text-3xl font-bold leading-none tracking-tight">
             All prints
           </h1>
-          <PrintsList prints={data} />
+          {prints?.length ? (
+            <PrintsList prints={prints} />
+          ) : (
+            <p className="mb-8 text-center text-3xl tracking-tight">
+              No prints yet
+            </p>
+          )}
         </div>
       </section>
     </main>
