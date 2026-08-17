@@ -1,3 +1,4 @@
+import { Background } from '@/components/ui/background'
 import { Button } from '@/components/ui/button'
 import { Navbar } from '@/components/ui/navbar'
 
@@ -16,13 +17,11 @@ export default async function Home() {
       <section>
         <Navbar />
       </section>
-      <section className="min-h-screen bg-slate-100 text-slate-900 dark:bg-slate-900 dark:text-slate-100 flex justify-center px-4 relative overflow-hidden">
+      <section className="min-h-screen bg-slate-100 text-slate-900
+                          dark:bg-slate-900 dark:text-slate-100 flex
+                          justify-center px-4 relative overflow-hidden">
         {/* background accents */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute right-[-80px] top-24 w-72 h-72 rounded-full bg-indigo-500/10 blur-3xl" />
-          <div className="absolute left-[-90px] bottom-[-80px] w-96 h-96 rounded-full bg-indigo-500/5 blur-3xl" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(79,70,229,0.15),transparent_45%)] dark:bg-[radial-gradient(circle_at_top,rgba(79,70,229,0.25),transparent_45%)]" />
-        </div>
+        <Background />
 
         <section className="relative z-10 rounded-lg py-8 sm:py-12">
           <div className="
@@ -36,13 +35,14 @@ export default async function Home() {
             "
           >
             {/* Text block*/}
-            <div className="order-1 max-w-md space-y-4 md:order-1 flex flex-col items-center text-center md:items-start md:text-left">
+            <div className="order-1 max-w-md space-y-4 md:order-1 flex flex-col
+                            items-center text-center md:items-start md:text-left">
               <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-                3D Printing & Hand-Painted Collectibles
+                3D-друк та колекційні мініатюри ручного розпису
               </h2>
 
               <p className="text-neutral-700 dark:text-neutral-300">
-                From digital models to highly detailed physical figures and custom hand-painted statues
+                Від цифрових моделей до готових високодеталізованих фігур та ексклюзивного розпису.
               </p>
 
               <Button
@@ -54,7 +54,7 @@ export default async function Home() {
                   href="/prints"
                   className="inline-flex items-center justify-center rounded-lg px-12 py-6"
                 >
-                  See All Prints
+                  Відкрити галерею
                 </Link>
               </Button>
             </div>

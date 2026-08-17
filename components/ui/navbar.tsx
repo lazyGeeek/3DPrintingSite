@@ -30,11 +30,11 @@ export const Navbar = () => {
     <nav className="rounded-lg sticky top-0 z-50 shadow">
       <div className="container mx-auto flex items-center justify-between px-4 py-4">
         <Link href="/" className="hover:text-blue-600">
-          3D Prints
+          3D Друк
         </Link>
         <div className="hidden md:flex space-x-6">
-          <Link href="/" className="block hover:text-blue-600">Home</Link>
-          <Link href="/prints" className="hover:text-blue-600">Prints</Link>
+          <Link href="/" className="block hover:text-blue-600">Головна</Link>
+          <Link href="/prints" className="hover:text-blue-600">Галерея</Link>
         </div>
         <div className="flex items-center space-x-4">
           <ThemeChanger />
@@ -54,10 +54,10 @@ export const Navbar = () => {
         <nav className="md:hidden shadow-md">
           <ul className="flex flex-col p-4 space-y-2 items-center text-center">
             <li>
-              <Link href="/" className="block hover:text-blue-600">Home</Link>
+              <Link href="/" className="block hover:text-blue-600">Головна</Link>
             </li>
             <li>
-              <Link href="/prints" className="hover:text-blue-600">Prints</Link>
+              <Link href="/prints" className="hover:text-blue-600">Галерея</Link>
             </li>
           </ul>
         </nav>
