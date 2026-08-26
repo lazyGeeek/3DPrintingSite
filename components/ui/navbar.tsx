@@ -27,7 +27,7 @@ export const Navbar = () => {
   }, []);
 
   return (
-    <nav className="rounded-lg sticky top-0 z-50 shadow">
+    <nav className="rounded-lg top-0 z-50 shadow">
       <div className="container mx-auto flex items-center justify-between px-4 py-4">
         <Link href="/" className="hover:text-blue-600">
           3D Друк
