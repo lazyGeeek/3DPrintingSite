@@ -1,22 +1,28 @@
+import Link from 'next/link'
+import Image from 'next/image'
+
 import { Background } from '@/components/ui/background'
 import { Button } from '@/components/ui/button'
 import { Navbar } from '@/components/ui/navbar'
+import { MainHeader } from '@/components/home/main-header'
 
 import { createSupabaseClient } from '@/lib/supabase/client'
 
-import Link from 'next/link'
-import Image from 'next/image'
+import { GetHeadersList } from '@/lib/supabase/client'
 
 export default async function Home() {
   const { data: mainImage } = createSupabaseClient().storage.
                               from('faceless_void').
                               getPublicUrl('IMG_2460.JPG');
 
+  const headers = await GetHeadersList();
+
   return (
     <main>
       <section>
         <Navbar />
       </section>
+      {headers?.length > 0 && <MainHeader headers={headers} />}
       <section className="min-h-screen bg-slate-100 text-slate-900
                           dark:bg-slate-900 dark:text-slate-100 flex
                           justify-center px-4 relative overflow-hidden">

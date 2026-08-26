@@ -16,7 +16,7 @@ import { PrintCard } from "@/components/print/print-card"
 import { PrintType } from "@/components/print/print-type"
 
 type Prints = {
-    prints: PrintType[];
+  prints: PrintType[];
 }
 
 const ITEMS_PER_PAGE = 9;

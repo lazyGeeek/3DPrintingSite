@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 
+import { HeaderInfo } from '@/components/home/header-info'
 import { PrintType } from '@/components/print/print-type'
 
 const supabaseUrl = process.env.SUPABASE_URL;
@@ -24,7 +25,8 @@ export async function GetPrintsList() : Promise<PrintType[]>
 
     let mainImage: string = item.main_image;
     
-    const { data: images, error } = await supabase.storage.from(item.images).list('');
+    const storage = supabase.storage.from(item.images);
+    const { data: images, error } = await storage.list('');
     
     if (error) {
       console.error(error);
@@ -36,16 +38,14 @@ export async function GetPrintsList() : Promise<PrintType[]>
     for (const image of images!) {
       if (image === null) continue;
 
-      const { data } = supabase.storage
-        .from(item.images)
-        .getPublicUrl(image.name);
+      const { data } = storage.getPublicUrl(image.name);
       
       if (image.id === item.main_image)
         mainImage = data.publicUrl;
       
       imagesLink.push(data.publicUrl);
     }
-  
+
     prints.push({
       Id: item.id,
       Title: item.title,
@@ -57,4 +57,52 @@ export async function GetPrintsList() : Promise<PrintType[]>
   }
 
   return prints;
+}
+
+export async function GetHeadersList() : Promise<HeaderInfo[]>
+{
+  const headers: HeaderInfo[] = [];
+
+  const supabase = createSupabaseClient();
+  const { data, error: headerError } = await supabase.from('headers').select('*');
+
+  if (headerError) {
+    console.error(headerError);
+    return headers;
+  }
+
+  const headersImages = supabase.storage.from('headers');
+  const { data: images, error: imagesError } = await headersImages.list('');
+
+  if (imagesError) {
+    console.error(imagesError);
+    return headers;
+  }
+
+  for (const item of data!) {
+    if (item === null) continue;
+
+    let lightImage: string = "";
+    let darkImage: string = "";
+
+    for (const image of images!) {
+      if (image === null) continue;
+
+      const { data } = headersImages.getPublicUrl(image.name);
+
+      if (image.id === item.light_image)
+        lightImage = data.publicUrl;
+
+      if (image.id === item.dark_image)
+        darkImage = data.publicUrl;
+    }
+
+    headers.push({
+      Id: item.id,
+      LightImage: lightImage,
+      DarkImage: darkImage
+    } as HeaderInfo);
+  }
+
+  return headers;
 }
