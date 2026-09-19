@@ -3,7 +3,6 @@ import Image from 'next/image'
 
 import { Background } from '@/components/ui/background'
 import { Button } from '@/components/ui/button'
-import { Navbar } from '@/components/ui/navbar'
 import { MainHeader } from '@/components/home/main-header'
 
 import { createSupabaseClient } from '@/lib/supabase/client'
@@ -19,9 +18,6 @@ export default async function Home() {
 
   return (
     <main>
-      <section>
-        <Navbar />
-      </section>
       {headers?.length > 0 && <MainHeader headers={headers} />}
       <section className="min-h-screen bg-slate-100 text-slate-900
                           dark:bg-slate-900 dark:text-slate-100 flex
@@ -36,7 +32,7 @@ export default async function Home() {
               px-6 sm:px-10 md:px-16
               md:grid-cols-2
               rounded-2xl border border-slate-200/70
-              bg-slate-100/90 shadow-2xl backdrop-blur-md px-6 py-8
+              bg-slate-100/90 shadow-2xl backdrop-blur-md py-8
               dark:border-slate-700/70 dark:bg-slate-800/90
             "
           >
