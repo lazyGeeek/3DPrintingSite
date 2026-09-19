@@ -4,6 +4,8 @@ import { cn } from '@/lib/utils'
 
 import './globals.css';
 import { ThemeProvider } from '@/components/theme/theme-provider'
+import { Navbar } from '@/components/ui/navbar'
+import { Footer } from '@/components/ui/footer'
 
 const nunitoSans = Nunito_Sans({variable:'--font-sans'});
 
@@ -28,7 +30,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={cn("font-sans", nunitoSans.variable)} suppressHydrationWarning>
       <body className="flex min-h-full flex-col">
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

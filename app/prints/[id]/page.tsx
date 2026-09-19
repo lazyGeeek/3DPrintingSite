@@ -1,6 +1,5 @@
 import { notFound } from 'next/navigation'
 
-import { Navbar } from '@/components/ui/navbar'
 import { PrintDetail } from '@/components/print/print-detail'
 import { PrintType } from '@/components/print/print-type'
 
@@ -34,9 +33,6 @@ export default async function PrintsPage({
 
   return (
     <main>
-      <section>
-        <Navbar />
-      </section>
       <PrintDetail print={print} />
     </main>
   );

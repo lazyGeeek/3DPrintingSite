@@ -106,3 +106,25 @@ export async function GetHeadersList() : Promise<HeaderInfo[]>
 
   return headers;
 }
+
+export async function GetShowcaseImages() : Promise<string[]>
+{
+  const returnImages: string[] = [];
+
+  const showcaseImages = createSupabaseClient().storage.from('showcase');
+  const { data: images, error: imagesError } = await showcaseImages.list('');
+
+  if (imagesError) {
+    console.error(imagesError);
+    return returnImages;
+  }
+
+  for (const image of images!) {
+    if (image === null) continue;
+
+    const { data } = showcaseImages.getPublicUrl(image.name);
+    returnImages.push(data.publicUrl);
+  }
+
+  return returnImages;
+}
