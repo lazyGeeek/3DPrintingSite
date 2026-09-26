@@ -4,10 +4,9 @@ import Image from 'next/image'
 import { Background } from '@/components/ui/background'
 import { Button } from '@/components/ui/button'
 import { MainHeader } from '@/components/home/main-header'
+import { ShowcaseCarousel } from '@/components/print/showcase-carousel'
 
-import { createSupabaseClient } from '@/lib/supabase/client'
-
-import { GetHeadersList } from '@/lib/supabase/client'
+import { createSupabaseClient, GetHeadersList, GetShowcaseImages } from '@/lib/supabase/client'
 
 export default async function Home() {
   const { data: mainImage } = createSupabaseClient().storage.
@@ -15,6 +14,7 @@ export default async function Home() {
                               getPublicUrl('IMG_2460.JPG');
 
   const headers = await GetHeadersList();
+  const showcaseImages = await GetShowcaseImages();
 
   return (
     <main>
@@ -33,8 +33,7 @@ export default async function Home() {
               md:grid-cols-2
               rounded-2xl border border-slate-200/70
               bg-slate-100/90 shadow-2xl backdrop-blur-md py-8
-              dark:border-slate-700/70 dark:bg-slate-800/90
-            "
+              dark:border-slate-700/70 dark:bg-slate-800/90"
           >
             {/* Text block*/}
             <div className="order-1 max-w-md space-y-4 md:order-1 flex flex-col
@@ -79,6 +78,11 @@ export default async function Home() {
               />
             </div>
           </div>
+          {showcaseImages.length > 0 && (
+            <div className="mx-auto mt-8 max-w-5xl">
+              <ShowcaseCarousel images={showcaseImages} />
+            </div>
+          )}
         </section>
       </section>
     </main>
