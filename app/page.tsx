@@ -6,7 +6,11 @@ import { Button } from '@/components/ui/button'
 import { MainHeader } from '@/components/home/main-header'
 import { ShowcaseCarousel } from '@/components/print/showcase-carousel'
 
-import { createSupabaseClient, GetHeadersList, GetShowcaseImages } from '@/lib/supabase/client'
+import {
+    createSupabaseClient,
+    GetHeadersList,
+    GetPrintsList,
+} from '@/lib/supabase/client'
 
 export default async function Home() {
   const { data: mainImage } = createSupabaseClient().storage.
@@ -14,7 +18,7 @@ export default async function Home() {
                               getPublicUrl('IMG_2460.JPG');
 
   const headers = await GetHeadersList();
-  const showcaseImages = await GetShowcaseImages();
+  const prints = await GetPrintsList();
 
   return (
     <main>
@@ -25,7 +29,7 @@ export default async function Home() {
         {/* background accents */}
         <Background />
 
-        <section className="relative z-10 rounded-lg py-8 sm:py-12">
+        <section className="relative z-10 w-full min-w-0 rounded-lg py-8 sm:py-12">
           <div className="
               mx-auto grid max-w-5xl
               grid-cols-1 items-center justify-items-center gap-8
@@ -77,12 +81,12 @@ export default async function Home() {
                 src={mainImage.publicUrl}
               />
             </div>
+            {prints.length >= 3 && (
+              <div className="order-3 w-full min-w-0 md:col-span-2">
+                <ShowcaseCarousel prints={prints} />
+              </div>
+            )}
           </div>
-          {showcaseImages.length > 0 && (
-            <div className="mx-auto mt-8 max-w-5xl">
-              <ShowcaseCarousel images={showcaseImages} />
-            </div>
-          )}
         </section>
       </section>
     </main>
