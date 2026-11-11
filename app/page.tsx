@@ -5,10 +5,12 @@ import { Background } from '@/components/ui/background'
 import { Button } from '@/components/ui/button'
 import { MainHeader } from '@/components/home/main-header'
 import { ShowcaseCarousel } from '@/components/print/showcase-carousel'
+import { LatestPrintsCarousel } from '@/components/print/prints-carousel'
 
 import {
     createSupabaseClient,
     GetHeadersList,
+    GetShowcaseImages,
     GetPrintsList,
 } from '@/lib/supabase/client'
 
@@ -19,6 +21,7 @@ export default async function Home() {
 
   const headers = await GetHeadersList();
   const prints = await GetPrintsList();
+  const showcaseImages = await GetShowcaseImages();
 
   return (
     <main>
@@ -89,6 +92,13 @@ export default async function Home() {
           </div>
         </section>
       </section>
+      {showcaseImages.length >= 3 && (
+        <section className="bg-slate-100 px-4 py-8 dark:bg-slate-900">
+          <div className="mx-auto max-w-5xl">
+            <LatestPrintsCarousel prints={showcaseImages} amount={showcaseImages.length} />
+          </div>
+        </section>
+      )}
     </main>
   );
 }
