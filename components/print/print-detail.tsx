@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { Background } from '@/components/ui/background'
 import { Button } from '@/components/ui/button'
 import { PrintType } from '@/components/print/print-type'
+import { PrintsLightbox } from '@/components/print/prints-lightbox'
 
 type PrintImage = {
   src: string
@@ -25,17 +26,6 @@ export const PrintDetail: React.FC<{print: PrintType}> = ({ print }) => {
   const [currentIndex, setCurrentIndex] = React.useState<number>(0)
 
   const [isLightboxOpen, setIsLightboxOpen] = React.useState(false)
-  const [zoom, setZoom] = React.useState(1) // 1 = 100%
-  const [offset, setOffset] = React.useState({ x: 0, y: 0 })
-
-  // for drag/pan
-  const [isDragging, setIsDragging] = React.useState(false);
-  const lastPosRef = React.useRef({ x: 0, y: 0 })
-
-  // for swipe on mobile
-  const touchStartXRef = React.useRef<number | null>(null)
-  const touchEndXRef = React.useRef<number | null>(null)
-
   const currentImage = images[currentIndex]
 
   const clampIndex = React.useCallback(
@@ -66,6 +56,7 @@ export const PrintDetail: React.FC<{print: PrintType}> = ({ print }) => {
 
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (isLightboxOpen) return
       if (event.key === "ArrowLeft") {
         event.preventDefault()
         scrollPrev()
@@ -80,87 +71,9 @@ export const PrintDetail: React.FC<{print: PrintType}> = ({ print }) => {
     [scrollPrev, scrollNext, isLightboxOpen]
   )
 
-  // zoom controls
-  const handleZoomIn = () => {
-    setZoom((z) => Math.min(z + 0.1, 3)) // allow up to 300%
-  }
-
-  const handleZoomOut = () => {
-    setZoom((z) => Math.max(z - 0.1, 0.5)) // min 50%
-  }
-
-  const handleResetZoom = () => {
-    setZoom(1)
-    setOffset({ x: 0, y: 0 })
-  }
-
-  // drag / pan handlers for lightbox
-  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    setIsDragging(true)
-    lastPosRef.current = { x: e.clientX, y: e.clientY }
-  }
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!isDragging) return
-    const dx = e.clientX - lastPosRef.current.x
-    const dy = e.clientY - lastPosRef.current.y
-    lastPosRef.current = { x: e.clientX, y: e.clientY }
-    setOffset((prev) => ({ x: prev.x + dx, y: prev.y + dy }))
-  }
-
-  const handleMouseUp = () => {
-    setIsDragging(false)
-  }
-
-  const handleMouseLeave = () => {
-    setIsDragging(false)
-  }
-
-  // touch swipe + pan
-  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    const touch = e.touches[0]
-    touchStartXRef.current = touch.clientX
-    touchEndXRef.current = touch.clientX
-    setIsDragging(true)
-    lastPosRef.current = { x: touch.clientX, y: touch.clientY }
-  }
-
-  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    const touch = e.touches[0]
-    touchEndXRef.current = touch.clientX
-
-    if (!isDragging) return
-    const dx = touch.clientX - lastPosRef.current.x
-    const dy = touch.clientY - lastPosRef.current.y
-    lastPosRef.current = { x: touch.clientX, y: touch.clientY }
-    setOffset((prev) => ({ x: prev.x + dx, y: prev.y + dy }))
-  }
-
-  const handleTouchEnd = () => {
-    setIsDragging(false)
-    const startX = touchStartXRef.current
-    const endX = touchEndXRef.current
-    if (startX !== null && endX !== null) {
-      const delta = endX - startX
-      const threshold = 50 // px
-      if (delta > threshold) {
-        scrollPrev()
-      } else if (delta < -threshold) {
-        scrollNext()
-      }
-    }
-    touchStartXRef.current = null
-    touchEndXRef.current = null
-  }
-
   const openLightbox = () => {
     if (!currentImage) return
     setIsLightboxOpen(true)
-    handleResetZoom()
-  }
-
-  const closeLightbox = () => {
-    setIsLightboxOpen(false)
   }
 
   return (
@@ -308,176 +221,12 @@ export const PrintDetail: React.FC<{print: PrintType}> = ({ print }) => {
         </div>
       </section>
 
-      {/* Lightbox */}
       {isLightboxOpen && currentImage && (
-        <div
-          className="fixed inset-0 z-50 flex flex-col bg-black/80"
-          role="dialog"
-          aria-modal="true"
-        >
-          {/* Top bar */}
-          <div className="flex items-center justify-between px-4 py-3
-                          bg-black/60 text-foreground">
-            <div className="text-sm">
-              {print.Title} · {currentIndex + 1}/{imagesSize}
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-xs">{Math.round(zoom * 100)}%</span>
-              <Button
-                type="button"
-                size="icon"
-                variant="outline"
-                className="h-8 w-8 border-border bg-surface
-                           text-foreground hover:bg-surface/80"
-                onClick={handleZoomOut}
-              >
-                -
-              </Button>
-              <Button
-                type="button"
-                size="icon"
-                variant="outline"
-                className="h-8 w-8 border-border bg-surface
-                           text-foreground hover:bg-surface/80"
-                onClick={handleZoomIn}
-              >
-                +
-              </Button>
-              <Button
-                type="button"
-                variant="outline"
-                className="h-8 px-3 text-xs border-border bg-surface
-                           text-foreground hover:bg-surface/80"
-                onClick={handleResetZoom}
-              >
-                Reset
-              </Button>
-              <Button
-                type="button"
-                size="icon"
-                variant="outline"
-                className="h-8 w-8 border-border bg-surface
-                           text-foreground hover:bg-surface/80"
-                onClick={closeLightbox}
-              >
-                ✕
-              </Button>
-            </div>
-          </div>
-
-          {/* Image area */}
-          <div
-            className="relative flex-1 overflow-hidden cursor-grab active:cursor-grabbing"
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
-            onMouseLeave={handleMouseLeave}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-          >
-            {/* Prev / Next on sides */}
-            <Button
-              type="button"
-              variant="outline"
-              size="icon"
-              className="absolute top-1/2 left-4 -translate-y-1/2 z-50
-                         rounded-full bg-black/70 border-border
-                         text-foreground hover:bg-black/80"
-              onClick={scrollPrev}
-            >
-              <svg
-                className="w-5 h-5"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-              >
-                <path
-                  d="M15 18l-6-6 6-6"
-                  strokeWidth={2}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </Button>
-            <Button
-              type="button"
-              variant="outline"
-              size="icon"
-              className="absolute top-1/2 right-4 -translate-y-1/2 z-50
-                         rounded-full bg-black/70 border-border
-                         text-foreground hover:bg-black/80"
-              onClick={scrollNext}
-            >
-              <svg
-                className="w-5 h-5"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-              >
-                <path
-                  d="M9 6l6 6-6 6"
-                  strokeWidth={2}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </Button>
-
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div
-                style={{
-                  transform: `translate(${offset.x}px, ${offset.y}px) scale(${zoom})`,
-                  transition: isDragging ? "none" : "transform 0.1s ease-out",
-                }}
-              >
-                <Image
-                  src={currentImage.src}
-                  alt={currentImage.alt}
-                  width={1200}
-                  height={800}
-                  style={{
-                    width: "auto",
-                    height: "auto",
-                    maxWidth: "90vw",
-                    maxHeight: "80vh",
-                  }}
-                  className="object-contain select-none"
-                  loading="eager"
-                  draggable={false}
-                  priority
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Thumbnail strip inside lightbox */}
-          <div className="w-full px-4 py-3 flex gap-2 overflow-x-auto
-                          justify-center bg-black/80">
-            {images.map((img, index) => (
-              <button
-                key={img.src + index}
-                type="button"
-                onClick={() => goToIndex(index)}
-                className={`relative flex-shrink-0 w-16 h-16 rounded-md
-                            overflow-hidden border ${
-                  index === currentIndex
-                    ? "border-accent ring-2 ring-accent/70"
-                    : "border-border"
-                }`}
-              >
-                <Image
-                  src={img.src}
-                  alt={img.alt}
-                  fill
-                  sizes="64px"
-                  className="object-contain"
-                  loading="eager"
-                />
-              </button>
-            ))}
-          </div>
-        </div>
+        <PrintsLightbox
+          print={print}
+          initialImage={currentImage.src}
+          onClose={() => setIsLightboxOpen(false)}
+        />
       )}
     </div>
   );

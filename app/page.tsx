@@ -4,8 +4,8 @@ import Image from 'next/image'
 import { Background } from '@/components/ui/background'
 import { Button } from '@/components/ui/button'
 import { MainHeader } from '@/components/home/main-header'
+import { PrintsCarousel } from '@/components/print/prints-carousel'
 import { ShowcaseCarousel } from '@/components/print/showcase-carousel'
-import { LatestPrintsCarousel } from '@/components/print/prints-carousel'
 
 import {
     createSupabaseClient,
@@ -28,7 +28,7 @@ export default async function Home() {
       {headers?.length > 0 && <MainHeader headers={headers} />}
       <section className="min-h-screen bg-slate-100 text-slate-900
                           dark:bg-slate-900 dark:text-slate-100 flex
-                          justify-center px-4 relative overflow-hidden">
+                          justify-center px-4 relative">
         {/* background accents */}
         <Background />
 
@@ -86,7 +86,7 @@ export default async function Home() {
             </div>
             {prints.length >= 3 && (
               <div className="order-3 w-full min-w-0 md:col-span-2">
-                <ShowcaseCarousel prints={prints} />
+                <PrintsCarousel prints={prints} />
               </div>
             )}
           </div>
@@ -94,7 +94,7 @@ export default async function Home() {
       </section>
       {showcaseImages.length >= 3 && (
         <section className="bg-slate-100 py-8 dark:bg-slate-900">
-            <LatestPrintsCarousel prints={showcaseImages} amount={showcaseImages.length} />
+            <ShowcaseCarousel prints={showcaseImages} amount={showcaseImages.length} />
         </section>
       )}
     </main>
