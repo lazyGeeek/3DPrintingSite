@@ -47,7 +47,7 @@ export function Footer() {
               aria-label={name}
               className={cn(
                 "grid size-9 place-items-center rounded-full border border-border text-muted-foreground",
-                "transition-colors hover:border-primary/40 hover:bg-primary/10 hover:text-primary",
+                "transition-colors hover:border-primary/40 hover:bg-primary/10 hover:text-primary-text",
                 "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
               )}
             >

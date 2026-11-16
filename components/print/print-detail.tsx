@@ -15,11 +15,13 @@ type PrintImage = {
 export const PrintDetail: React.FC<{ print: PrintType }> = ({ print }) => {
   const images: PrintImage[] = React.useMemo(
     () =>
-      (print.Images || []).map((img) => ({
+      Array.from(
+        new Set([print.MainImage, ...(print.Images || [])].filter(Boolean)),
+      ).map((img) => ({
         src: img,
         alt: print.Title,
       })),
-    [print.Images, print.Title],
+    [print.MainImage, print.Images, print.Title],
   );
 
   const imagesSize = images.length;
@@ -77,22 +79,24 @@ export const PrintDetail: React.FC<{ print: PrintType }> = ({ print }) => {
   };
 
   return (
-    <div onKeyDownCapture={handleKeyDown} tabIndex={0} className="outline-none">
-      {/* Top section: image + info */}
-      <section className="relative container mx-auto px-4 py-8 bg-card/80">
-        {/* background accents */}
-        <Background />
-
-        <div className="relative flex flex-col md:flex-row gap-8 rounded-lg p-4">
+    <div
+      onKeyDownCapture={handleKeyDown}
+      className="relative min-h-screen bg-background px-8 py-8 text-foreground sm:px-12 sm:py-12"
+    >
+      <Background />
+      <div className="relative z-10 mx-auto w-full max-w-7xl space-y-8">
+        <section className="grid min-w-0 items-start gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
           {/* Image area (thumbnails + main) */}
-          <div className="flex-1 flex flex-col md:flex-row gap-4">
+          <div className="flex min-w-0 flex-col gap-4 sm:flex-row">
             {/* Thumbnails */}
-            <div className="order-2 md:order-1 md:w-24 flex md:flex-col gap-2 overflow-x-auto md:overflow-y-auto md:max-h-[70vh]">
+            <div className="order-2 flex min-w-0 gap-2 overflow-x-auto p-1 sm:order-1 sm:max-h-[32rem] sm:w-24 sm:shrink-0 sm:flex-col sm:overflow-y-auto">
               {images.map((img, index) => (
                 <button
                   key={img.src + index}
                   type="button"
                   onClick={() => goToIndex(index)}
+                  aria-label={`Переглянути зображення ${index + 1}`}
+                  aria-pressed={index === currentIndex}
                   className={`relative flex-shrink-0 w-20 h-20 rounded-md
                               overflow-hidden transition border ${
                                 index === currentIndex
@@ -112,7 +116,7 @@ export const PrintDetail: React.FC<{ print: PrintType }> = ({ print }) => {
             </div>
 
             {/* Main image */}
-            <div className="order-1 md:order-2 relative flex-1 min-h-[260px] md:min-h-[420px] rounded-md overflow-hidden bg-muted">
+            <div className="order-1 relative h-72 min-w-0 overflow-hidden rounded-2xl border border-border bg-card shadow-sm sm:order-2 sm:h-[32rem] sm:flex-1">
               {currentImage && (
                 <>
                   <Image
@@ -120,7 +124,7 @@ export const PrintDetail: React.FC<{ print: PrintType }> = ({ print }) => {
                     alt={currentImage.alt}
                     fill
                     priority
-                    sizes="(min-width: 768px) 60vw, 100vw"
+                    sizes="(min-width: 1280px) 720px, (min-width: 1024px) 60vw, 100vw"
                     className="object-contain cursor-zoom-in"
                     loading="eager"
                     onClick={openLightbox}
@@ -131,6 +135,8 @@ export const PrintDetail: React.FC<{ print: PrintType }> = ({ print }) => {
                     variant="outline"
                     size="icon"
                     className="absolute top-1/2 left-3 z-20 -translate-y-1/2 w-9 h-9 rounded-full bg-card/80 hover:bg-card border-border text-foreground"
+                    aria-label="Попереднє зображення"
+                    disabled={imagesSize < 2}
                     onClick={scrollPrev}
                   >
                     <svg
@@ -153,6 +159,8 @@ export const PrintDetail: React.FC<{ print: PrintType }> = ({ print }) => {
                     variant="outline"
                     size="icon"
                     className="absolute top-1/2 right-3 z-20 -translate-y-1/2 w-9 h-9 rounded-full bg-card/80 hover:bg-card border-border text-foreground"
+                    aria-label="Наступне зображення"
+                    disabled={imagesSize < 2}
                     onClick={scrollNext}
                   >
                     <svg
@@ -181,34 +189,32 @@ export const PrintDetail: React.FC<{ print: PrintType }> = ({ print }) => {
           </div>
 
           {/* Info area – right on desktop, under images on mobile */}
-          {print.Properties && (
-            <div className="md:w-1/3 rounded-2xl border bg-card/90 border-border/70 shadow-2xl backdrop-blur-md px-6 py-8">
-              <h1 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">
-                {print.Title}
-              </h1>
+          <div className="min-w-0 break-words rounded-2xl border border-border/70 bg-card/90 px-6 py-8 text-card-foreground shadow-sm backdrop-blur-md">
+            <h1 className="text-2xl md:text-3xl font-bold mb-4 text-foreground">
+              {print.Title}
+            </h1>
+            {Boolean(print.Properties?.length) && (
               <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
-                {print.Properties.map((property, index) => (
+                {print.Properties?.map((property, index) => (
                   <li className="text-muted-foreground" key={index}>
                     <span className="text-foreground">{property}</span>
                   </li>
                 ))}
               </ul>
-            </div>
-          )}
-        </div>
-      </section>
+            )}
+          </div>
+        </section>
 
-      {/* Description section */}
-      <section className="container mx-auto px-4 pb-12">
-        <div className="rounded-2xl border bg-card/90 border-border/70 shadow-2xl backdrop-blur-md px-6 py-8">
+        {/* Description section */}
+        <section className="min-w-0 break-words rounded-2xl border border-border/70 bg-card/90 px-6 py-8 text-card-foreground shadow-sm backdrop-blur-md">
           <h2 className="text-xl font-bold mb-3 text-foreground">Опис</h2>
           {print.Description && (
-            <p className="whitespace-pre-line text-foreground/80">
+            <p className="whitespace-pre-line leading-relaxed text-muted-foreground">
               {print.Description}
             </p>
           )}
-        </div>
-      </section>
+        </section>
+      </div>
 
       {isLightboxOpen && currentImage && (
         <PrintsLightbox

@@ -1,0 +1,64 @@
+/* Generated with Radix's official custom palette generator.
+ * https://www.radix-ui.com/colors/custom?accent-light=4F46E5&accent-dark=4F46E5&bg-light=F8F9FA&bg-dark=040E2F
+ * Neutral reference: #8B8D98 (Radix default; not overridden in the URL).
+ */
+
+:root {
+  --palette-accent-1: #f6f6f9;
+  --palette-accent-2: #f0f1fa;
+  --palette-accent-3: #e7eaf9;
+  --palette-accent-4: #dae0ff;
+  --palette-accent-5: #ccd4ff;
+  --palette-accent-6: #bbc5ff;
+  --palette-accent-7: #a5b1fc;
+  --palette-accent-8: #8894f7;
+  --palette-accent-9: #4f46e5;
+  --palette-accent-10: #443acb;
+  --palette-accent-11: #4942d2;
+  --palette-accent-12: #25256c;
+  --palette-gray-1: #f5f5f6;
+  --palette-gray-2: #f1f2f4;
+  --palette-gray-3: #e8e8ec;
+  --palette-gray-4: #dfe0e4;
+  --palette-gray-5: #d7d8de;
+  --palette-gray-6: #cfd1d7;
+  --palette-gray-7: #c4c5cd;
+  --palette-gray-8: #b0b2bd;
+  --palette-gray-9: #82848f;
+  --palette-gray-10: #787984;
+  --palette-gray-11: #5a5b64;
+  --palette-gray-12: #1e1f24;
+  --palette-background: #f8f9fa;
+  --palette-contrast: #fff;
+  --palette-destructive: #e5484d;
+}
+
+.dark {
+  --palette-accent-1: #0e101e;
+  --palette-accent-2: #131628;
+  --palette-accent-3: #1e204f;
+  --palette-accent-4: #262570;
+  --palette-accent-5: #2e2f81;
+  --palette-accent-6: #383a90;
+  --palette-accent-7: #4346a5;
+  --palette-accent-8: #5054c4;
+  --palette-accent-9: #4f46e5;
+  --palette-accent-10: #4434d4;
+  --palette-accent-11: #a0adff;
+  --palette-accent-12: #d9e0ff;
+  --palette-gray-1: #111113;
+  --palette-gray-2: #19191b;
+  --palette-gray-3: #222325;
+  --palette-gray-4: #292a2e;
+  --palette-gray-5: #303136;
+  --palette-gray-6: #393a40;
+  --palette-gray-7: #46484f;
+  --palette-gray-8: #5f606a;
+  --palette-gray-9: #6c6e79;
+  --palette-gray-10: #797b86;
+  --palette-gray-11: #b2b3bd;
+  --palette-gray-12: #eeeef0;
+  --palette-background: #040e2f;
+  --palette-contrast: #fff;
+  --palette-destructive: #e5484d;
+}

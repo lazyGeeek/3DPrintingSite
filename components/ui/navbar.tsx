@@ -26,14 +26,14 @@ export const Navbar = () => {
   return (
     <nav className="top-0 z-50 border-b border-border bg-card text-card-foreground shadow-sm">
       <div className="container mx-auto flex items-center justify-between px-4 py-4">
-        <Link href="/" className="hover:text-primary">
+        <Link href="/" className="hover:text-primary-text">
           3D Друк
         </Link>
         <div className="hidden md:flex space-x-6">
-          <Link href="/" className="block hover:text-primary">
+          <Link href="/" className="block hover:text-primary-text">
             Головна
           </Link>
-          <Link href="/prints" className="hover:text-primary">
+          <Link href="/prints" className="hover:text-primary-text">
             Галерея
           </Link>
         </div>
@@ -56,12 +56,12 @@ export const Navbar = () => {
         <nav className="md:hidden shadow-md">
           <ul className="flex flex-col p-4 space-y-2 items-center text-center">
             <li>
-              <Link href="/" className="block hover:text-primary">
+              <Link href="/" className="block hover:text-primary-text">
                 Головна
               </Link>
             </li>
             <li>
-              <Link href="/prints" className="hover:text-primary">
+              <Link href="/prints" className="hover:text-primary-text">
                 Галерея
               </Link>
             </li>

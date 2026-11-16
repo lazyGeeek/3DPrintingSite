@@ -284,8 +284,8 @@ export const PrintsCarousel = ({ prints }: PrintsCarouselProps) => {
                 sizes="384px"
                 src={prints[printIndex].MainImage}
               />
-              <div className="pointer-events-none absolute inset-0 flex items-center justify-center rounded-xl bg-black/30 p-4">
-                <p className="rounded-lg bg-black/60 px-4 py-2 text-center text-xl font-semibold text-white drop-shadow-lg">
+              <div className="pointer-events-none absolute inset-0 flex items-center justify-center rounded-xl bg-image-overlay/30 p-4">
+                <p className="rounded-lg bg-image-overlay/60 px-4 py-2 text-center text-xl font-semibold text-image-foreground drop-shadow-lg">
                   {prints[printIndex].Title}
                 </p>
               </div>
@@ -301,7 +301,7 @@ export const PrintsCarousel = ({ prints }: PrintsCarouselProps) => {
           )}
         >
           <div
-            className="pointer-events-auto absolute cursor-pointer overflow-hidden rounded-xl bg-black/60 shadow-2xl ring-1 ring-white/20"
+            className="pointer-events-auto absolute cursor-pointer overflow-hidden rounded-xl bg-image-overlay/60 shadow-2xl ring-1 ring-image-foreground/20"
             data-prints-preview
             onClick={() => setLightboxPrint(preview.print)}
             onPointerLeave={() => {
@@ -339,7 +339,7 @@ export const PrintsCarousel = ({ prints }: PrintsCarouselProps) => {
             type="button"
             aria-label={direction === -1 ? "Scroll left" : "Scroll right"}
             className={cn(
-              "absolute top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/80 p-2 text-white shadow-lg transition-opacity hover:bg-black",
+              "absolute top-1/2 z-20 -translate-y-1/2 rounded-full bg-image-overlay/80 p-2 text-image-foreground shadow-lg transition-opacity hover:bg-image-overlay",
               "invisible opacity-0 [@media(hover:hover)]:group-hover/prints:visible [@media(hover:hover)]:group-hover/prints:opacity-100",
               direction === -1 ? "left-4" : "right-4",
             )}

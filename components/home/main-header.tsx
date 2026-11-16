@@ -61,8 +61,8 @@ export function MainHeader({ headers }: Headers) {
             onClick={() => setIsPaused((paused) => !paused)}
             className={cn(
               "grid size-10 place-items-center rounded-full border",
-              "border-white/50 bg-black/25 text-white backdrop-blur-sm",
-              "transition hover:bg-black/45",
+              "border-image-foreground/50 bg-image-overlay/25 text-image-foreground backdrop-blur-sm",
+              "transition hover:bg-image-overlay/45",
             )}
           >
             {isPaused ? (
@@ -79,7 +79,7 @@ export function MainHeader({ headers }: Headers) {
                 role="tab"
                 aria-selected={index === visibleSlide}
                 onClick={() => setActiveSlide(index)}
-                className={`h-1.5 rounded-full transition-all ${index === visibleSlide ? "w-8 bg-white" : "w-3 bg-white/55 hover:bg-white"}`}
+                className={`h-1.5 rounded-full transition-all ${index === visibleSlide ? "w-8 bg-image-foreground" : "w-3 bg-image-foreground/55 hover:bg-image-foreground"}`}
               />
             ))}
           </div>

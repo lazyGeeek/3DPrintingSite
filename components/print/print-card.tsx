@@ -63,7 +63,7 @@ export const PrintCard = ({ print }: Print) => {
               <div
                 className={cn(
                   "pointer-events-none absolute inset-0 bg-gradient-to-t",
-                  "from-black/20 via-transparent to-transparent",
+                  "from-image-overlay/20 via-transparent to-transparent",
                 )}
                 style={{ opacity: isImageHovered ? 1 : 0 }}
               />
@@ -94,7 +94,7 @@ export const PrintCard = ({ print }: Print) => {
               className={cn(
                 "line-clamp-2 text-xl font-bold tracking-tight",
                 "text-card-foreground transition-colors",
-                "duration-200 group-hover:text-primary",
+                "duration-200 group-hover/card:text-primary-text",
               )}
             >
               {print.Title}
@@ -112,7 +112,7 @@ export const PrintCard = ({ print }: Print) => {
               variant="default"
               className={cn(
                 "mt-auto w-full bg-primary text-primary-foreground shadow-sm",
-                "transition-colors hover:bg-primary/90",
+                "transition-colors hover:bg-primary-hover",
               )}
             >
               Детальніше
