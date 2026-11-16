@@ -28,15 +28,15 @@ export default async function Home() {
       {headers?.length > 0 && <MainHeader headers={headers} />}
       <section className="min-h-screen bg-slate-100 text-slate-900
                           dark:bg-slate-900 dark:text-slate-100 flex
-                          justify-center px-4 relative">
+                          justify-center px-8 sm:px-12 relative">
         {/* background accents */}
         <Background />
 
         <section className="relative z-10 w-full min-w-0 rounded-lg py-8 sm:py-12">
           <div className="
-              mx-auto grid max-w-5xl
+              mx-auto grid w-full
               grid-cols-1 items-center justify-items-center gap-8
-              px-6 sm:px-10 md:px-16
+              px-3 sm:px-5 md:px-8
               md:grid-cols-2
               rounded-2xl border border-slate-200/70
               bg-slate-100/90 shadow-2xl backdrop-blur-md py-8
