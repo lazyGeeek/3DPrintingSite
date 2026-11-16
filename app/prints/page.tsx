@@ -1,17 +1,15 @@
-import { PrintsList } from '@/components/print/prints-list'
-import { PrintType } from '@/components/print/print-type'
-import { Background } from '@/components/ui/background'
+import { PrintsList } from "@/components/print/prints-list";
+import { PrintType } from "@/components/print/print-type";
+import { Background } from "@/components/ui/background";
 
-import { GetPrintsList } from '@/lib/supabase/client'
+import { GetPrintsList } from "@/lib/supabase/client";
 
 export default async function PrintsPage() {
   const prints: PrintType[] = await GetPrintsList();
 
   return (
     <main>
-      <section className="min-h-screen bg-slate-100 text-slate-900
-                          dark:bg-slate-900 dark:text-slate-100
-                          flex justify-center px-6 py-8 relative overflow-visible">
+      <section className="min-h-screen bg-background text-foreground flex justify-center px-6 py-8 relative overflow-visible">
         <Background />
         <div className="pb-8">
           <h1 className="mb-8 text-center text-3xl font-bold leading-none tracking-tight">

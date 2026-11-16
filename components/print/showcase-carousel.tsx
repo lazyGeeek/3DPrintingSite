@@ -1,7 +1,7 @@
 "use client";
 
-import { Card } from "@/components/ui/card"
-import { useEffect, useState } from "react"
+import { Card } from "@/components/ui/card";
+import { useEffect, useState } from "react";
 
 import Image from "next/image";
 
@@ -10,7 +10,7 @@ interface ShowcaseCarouselProps {
   amount: number;
 }
 
-export const ShowcaseCarousel = ({prints, amount}: ShowcaseCarouselProps) => {
+export const ShowcaseCarousel = ({ prints, amount }: ShowcaseCarouselProps) => {
   const [current, setCurrent] = useState<number>(0);
 
   const numberOfIterItems = prints.length > amount ? amount : prints.length;
@@ -23,7 +23,7 @@ export const ShowcaseCarousel = ({prints, amount}: ShowcaseCarouselProps) => {
     }, 3000);
 
     return () => clearInterval(interval);
-}, [numberOfIterItems]);
+  }, [numberOfIterItems]);
 
   const currentImage = prints[current % numberOfIterItems];
 
@@ -35,14 +35,20 @@ export const ShowcaseCarousel = ({prints, amount}: ShowcaseCarouselProps) => {
         {prints.slice(0, numberOfIterItems).map((image, index) => (
           <Image
             key={`${image}-${index}`}
-            alt={index === current % numberOfIterItems ? `Showcase image ${index + 1}` : ""}
+            alt={
+              index === current % numberOfIterItems
+                ? `Showcase image ${index + 1}`
+                : ""
+            }
             aria-hidden={index !== current % numberOfIterItems}
             src={image}
             fill
             sizes="100vw"
             loading="eager"
             className={`object-cover transition-opacity duration-700 ease-in-out motion-reduce:transition-none ${
-              index === current % numberOfIterItems ? "opacity-100" : "opacity-0"
+              index === current % numberOfIterItems
+                ? "opacity-100"
+                : "opacity-0"
             }`}
           />
         ))}

@@ -1,5 +1,5 @@
 export interface HeaderInfo {
-  Id: string
-  LightImage: string
-  DarkImage: string
+  Id: string;
+  LightImage: string;
+  DarkImage: string;
 }

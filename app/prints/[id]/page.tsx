@@ -1,9 +1,9 @@
-import { notFound } from 'next/navigation'
+import { notFound } from "next/navigation";
 
-import { PrintDetail } from '@/components/print/print-detail'
-import { PrintType } from '@/components/print/print-type'
+import { PrintDetail } from "@/components/print/print-detail";
+import { PrintType } from "@/components/print/print-type";
 
-import { GetPrintsList } from '@/lib/supabase/client'
+import { GetPrintsList } from "@/lib/supabase/client";
 
 export async function generateStaticParams(): Promise<{ id: string }[]> {
   const prints = await GetPrintsList();
@@ -18,7 +18,7 @@ export default async function PrintsPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const prints = await GetPrintsList()
+  const prints = await GetPrintsList();
 
   if (!prints) {
     notFound();

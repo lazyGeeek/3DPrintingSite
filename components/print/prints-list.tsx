@@ -12,12 +12,12 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-import { PrintCard } from "@/components/print/print-card"
-import { PrintType } from "@/components/print/print-type"
+import { PrintCard } from "@/components/print/print-card";
+import { PrintType } from "@/components/print/print-type";
 
 type Prints = {
   prints: PrintType[];
-}
+};
 
 const ITEMS_PER_PAGE = 9;
 
@@ -87,24 +87,22 @@ export const PrintsList = ({ prints }: Prints) => {
 
   if (prints.length === 0) {
     return (
-      <p className="text-center text-muted-foreground">
-        No prints found.
-      </p>
+      <p className="text-center text-muted-foreground">No prints found.</p>
     );
   }
-  
+
   return (
     <div className="space-y-8">
       <ul className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        { visiblePrints.map((print, key)=>{
-            return (
-              <li key={key}>
-                <PrintCard print={print} />
-              </li>
-            );
-          })}
-        </ul>
-        {totalPages > 1 && (
+        {visiblePrints.map((print, key) => {
+          return (
+            <li key={key}>
+              <PrintCard print={print} />
+            </li>
+          );
+        })}
+      </ul>
+      {totalPages > 1 && (
         <Pagination>
           <PaginationContent>
             <PaginationItem>

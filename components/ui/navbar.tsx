@@ -1,15 +1,12 @@
 "use client";
 
-import Link from 'next/link'
+import Link from "next/link";
 
-import {
-  Bars3Icon,
-  XMarkIcon,
-} from '@heroicons/react/24/outline'
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
-import { useEffect, useState } from 'react'
-import { ThemeChanger } from '@/components/theme/theme-changer'
-import { Button } from '@/components/ui/button'
+import { useEffect, useState } from "react";
+import { ThemeChanger } from "@/components/theme/theme-changer";
+import { Button } from "@/components/ui/button";
 
 export const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState<boolean>(false);
@@ -27,21 +24,26 @@ export const Navbar = () => {
   }, []);
 
   return (
-    <nav className="rounded-lg top-0 z-50 shadow">
+    <nav className="top-0 z-50 border-b border-border bg-card text-card-foreground shadow-sm">
       <div className="container mx-auto flex items-center justify-between px-4 py-4">
-        <Link href="/" className="hover:text-blue-600">
+        <Link href="/" className="hover:text-primary">
           3D Друк
         </Link>
         <div className="hidden md:flex space-x-6">
-          <Link href="/" className="block hover:text-blue-600">Головна</Link>
-          <Link href="/prints" className="hover:text-blue-600">Галерея</Link>
+          <Link href="/" className="block hover:text-primary">
+            Головна
+          </Link>
+          <Link href="/prints" className="hover:text-primary">
+            Галерея
+          </Link>
         </div>
         <div className="flex items-center space-x-4">
           <ThemeChanger />
           <Button
             variant="ghost"
             className="md:hidden"
-            onClick={() => setMobileOpen((prev) => !prev)} >
+            onClick={() => setMobileOpen((prev) => !prev)}
+          >
             {mobileOpen ? (
               <XMarkIcon className="h-6 w-6" />
             ) : (
@@ -54,10 +56,14 @@ export const Navbar = () => {
         <nav className="md:hidden shadow-md">
           <ul className="flex flex-col p-4 space-y-2 items-center text-center">
             <li>
-              <Link href="/" className="block hover:text-blue-600">Головна</Link>
+              <Link href="/" className="block hover:text-primary">
+                Головна
+              </Link>
             </li>
             <li>
-              <Link href="/prints" className="hover:text-blue-600">Галерея</Link>
+              <Link href="/prints" className="hover:text-primary">
+                Галерея
+              </Link>
             </li>
           </ul>
         </nav>
