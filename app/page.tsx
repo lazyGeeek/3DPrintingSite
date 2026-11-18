@@ -26,7 +26,7 @@ export default async function Home() {
   return (
     <main>
       {headers?.length > 0 && <MainHeader headers={headers} />}
-      <section className="min-h-screen bg-background text-foreground flex justify-center px-4 relative">
+      <section className="home-section-colors min-h-screen bg-background text-foreground flex justify-center px-4 relative">
         {/* background accents */}
         <Background />
 
@@ -83,7 +83,7 @@ export default async function Home() {
         </section>
       </section>
       {showcaseImages.length >= 3 && (
-        <section className="bg-background py-8">
+        <section className="home-section-colors bg-background py-8">
           <ShowcaseCarousel
             prints={showcaseImages}
             amount={showcaseImages.length}

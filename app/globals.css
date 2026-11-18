@@ -99,6 +99,24 @@
   --image-foreground: var(--palette-contrast);
 }
 
+@utility home-section-colors {
+  --background: var(--color-slate-100);
+  --foreground: var(--color-slate-900);
+  --card: var(--color-slate-100);
+  --card-foreground: var(--color-slate-900);
+  --border: var(--color-slate-200);
+  --muted-foreground: var(--color-neutral-700);
+
+  @variant dark {
+    --background: var(--color-slate-900);
+    --foreground: var(--color-slate-100);
+    --card: var(--color-slate-800);
+    --card-foreground: var(--color-slate-100);
+    --border: var(--color-slate-700);
+    --muted-foreground: var(--color-neutral-300);
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
