@@ -30,7 +30,7 @@ export const ShowcaseCarousel = ({ prints, amount }: ShowcaseCarouselProps) => {
   if (!currentImage) return null;
 
   return (
-    <Card className="relative h-80 w-full overflow-hidden rounded-none border-0 p-0 shadow-none">
+    <Card className="relative h-[calc(13.5rem+2px)] w-full overflow-hidden rounded-none border-0 p-0 shadow-none">
       <div className="relative h-full w-full">
         {prints.slice(0, numberOfIterItems).map((image, index) => (
           <Image
